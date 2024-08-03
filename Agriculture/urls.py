@@ -5,6 +5,7 @@ urlpatterns = [
     path('api/', views.testing, name='testing'),
     path('api/register/', views.registerPage, name="register"),
     path('api/login/', views.loginPage, name="login"),
+     path('api/googlelogin/', views.googlelogin, name="googlelogin"),
     path('api/fileupload/', views.fileupload, name="fileupload"),
     path('api/logout/', views.logoutUser, name="logout"),
     path('api/getuserdetails/', views.getuserdetails, name="getuserdetails"),

@@ -20,6 +20,8 @@ class CreateUserForm(PlaceholderMixin, UserCreationForm):
     class Meta:
         try:
             model = User
-            fields = ['username', 'email', 'password1', 'password2']
+
+            fields = ['username', 'email', 'password1','password2']
+            
         except Exception as e:
             print(e)
