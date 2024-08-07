@@ -3,13 +3,13 @@ from django.http import request
 from django.contrib.auth import authenticate, login, logout
 from .form import CreateUserForm
 from django.views.decorators.csrf import csrf_exempt
-from .database import SQLiteDB
+from .database import PostgreSQLDB
 import io
 from io import StringIO
 import pandas as pd
 import json
 
-db = SQLiteDB()
+db = PostgreSQLDB(dbname='uibmogli', user='uibmogli', password='8ogImHfL_1G249lXtM3k2EAIWTRDH2mX')
 
 
 # db.table_creation()
@@ -132,6 +132,22 @@ def getroomsdata(request):
 def getdatawithinrange(request):
     return HttpResponse("Under Dev")
 
+
+
+@csrf_exempt
+def fileupload(request):
+    files = request.FILES['file']
+    if len(files) < 1:
+        return HttpResponse('No files uploaded')
+    else:
+        content = files.read().decode('utf-8')
+        csv_data = io.StringIO(content)
+        df = pd.read_csv(csv_data)
+        df.to_csv('data.csv', index=False)
+        return HttpResponse("File Uploaded")
+    
+
+    
 
 @csrf_exempt
 def getharvestdata(request):

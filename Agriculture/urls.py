@@ -11,6 +11,7 @@ urlpatterns = [
     path('api/getuserdetails/', views.getuserdetails, name="getuserdetails"),
     path('api/getdatawithinrange/', views.getdatawithinrange, name="getdatawithinrange"),
     path('api/getroomsdata/', views.getroomsdata, name="getroomsdata"),
+    path('api/fileupload/', views.fileupload, name="fileupload"),
     path('api/getharvestdata/', views.getharvestdata, name="getharvestdata"),
     path('api/getlayoutsectionadd/', views.getlayoutsectionadd, name="getlayoutsectionadd"),
     path('api/getlayoutsectionread/', views.getlayoutsectionread, name="getlayoutsectionread"),
