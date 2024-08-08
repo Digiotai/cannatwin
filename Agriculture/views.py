@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse
-from django.http import request
+from django.http import JsonResponse, request
 from django.contrib.auth import authenticate, login, logout
 from .form import CreateUserForm
 from django.views.decorators.csrf import csrf_exempt
@@ -89,18 +89,42 @@ def logoutUser(request):
     pass
 
 
+
+# File upload for rooms data
 @csrf_exempt
 def fileupload(request):
-    files = request.FILES['file']
-    if len(files) < 1:
-        return HttpResponse('No files uploaded')
-    else:
-        content = files.read().decode('utf-8')
-        csv_data = io.StringIO(content)
-        df = pd.read_csv(csv_data)
-        df.to_csv('data.csv', index=False)
-        return HttpResponse("File Uploaded")
+    try:
+        files = request.FILES.get('file')
+        if not files:
+            return HttpResponse('No files uploaded', status=400)
 
+        # Determine the file extension
+        file_extension = files.name.split('.')[-1].lower()
+
+        if file_extension == 'csv':
+            # Read the CSV file content
+            content = files.read().decode('utf-8')
+            csv_data = io.StringIO(content)
+            df = pd.read_csv(csv_data)
+        elif file_extension == 'xlsx':
+            # Read the Excel file content
+            df = pd.read_excel(files)
+        else:
+            return HttpResponse('Unsupported file format. Please upload a CSV or XLSX file.', status=400)
+
+        # Save the data to a CSV or Excel file
+        file_name = 'data'
+        if file_extension == 'csv':
+            df.to_csv(f'{file_name}.csv', index=False)
+        elif file_extension == 'xlsx':
+            df.to_excel(f'{file_name}.xlsx', index=False)
+
+        # Convert DataFrame to JSON format and return it as a response
+        response_data = df.to_dict(orient='records')
+        return JsonResponse(response_data, safe=False)
+
+    except Exception as e:
+        return HttpResponse(f"An error occurred: {str(e)}", status=500)
 
 @csrf_exempt
 def getdatawithinrange(request):
@@ -134,17 +158,44 @@ def getdatawithinrange(request):
 
 
 
+
+# File upload for harvest data
 @csrf_exempt
 def fileupload(request):
-    files = request.FILES['file']
-    if len(files) < 1:
-        return HttpResponse('No files uploaded')
-    else:
-        content = files.read().decode('utf-8')
-        csv_data = io.StringIO(content)
-        df = pd.read_csv(csv_data)
-        df.to_csv('data.csv', index=False)
-        return HttpResponse("File Uploaded")
+    try:
+        files = request.FILES.get('file')
+        if not files:
+            return HttpResponse('No files uploaded', status=400)
+
+        # Determine the file extension
+        file_extension = files.name.split('.')[-1].lower()
+
+        if file_extension == 'csv':
+            # Read the CSV file content
+            content = files.read().decode('utf-8')
+            csv_data = io.StringIO(content)
+            df = pd.read_csv(csv_data)
+        elif file_extension == 'xlsx':
+            # Read the Excel file content
+            df = pd.read_excel(files)
+        else:
+            return HttpResponse('Unsupported file format. Please upload a CSV or XLSX file.', status=400)
+
+        # Save the data to a CSV or Excel file
+        file_name = 'data'
+        if file_extension == 'csv':
+            df.to_csv(f'{file_name}.csv', index=False)
+        elif file_extension == 'xlsx':
+            df.to_excel(f'{file_name}.xlsx', index=False)
+
+        # Convert DataFrame to JSON format and return it as a response
+        response_data = df.to_dict(orient='records')
+        return JsonResponse(response_data, safe=False)
+
+    except Exception as e:
+        return HttpResponse(f"An error occurred: {str(e)}", status=500)
+
+
     
 
     
