@@ -179,7 +179,7 @@ def getdatawithinrange(request):
 
 
 ## For Harvest data
-# File upload for harvest data
+# File upload for rooms data
 @csrf_exempt
 def fileupload_harvest(request):
     try:
@@ -211,7 +211,7 @@ def fileupload_harvest(request):
             return HttpResponse('Unsupported file format. Please upload a CSV or XLSX file.', status=400)
 
         # Save the data to the database using the store_file_data method
-        db.store_file_data(email, df)
+        db.store_file_data_for_harvest(email, df)
 
         # Convert DataFrame to JSON format and return it as a response
         response_data = df.to_dict(orient='records')
@@ -240,7 +240,7 @@ def getharvestdata(request):
             return HttpResponse('User email not provided.', status=400)
 
         # Fetch the uploaded data using the email
-        uploaded_data = db.get_uploaded_data(email)
+        uploaded_data = db.get_uploaded_data_for_harvest(email)
 
         # Check if any data was found
         if not uploaded_data:
