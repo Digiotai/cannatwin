@@ -20,19 +20,38 @@ def testing(request):
     return HttpResponse("Application is up")
 
 
+from django.contrib.auth import authenticate, login
+from django.http import JsonResponse, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
 @csrf_exempt
 def loginPage(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+
+        # Authenticate the user
         user = authenticate(request, username=username, password=password)
+
         if user is not None:
+            # Log the user in
             login(request, user)
-            return HttpResponse("Success")
+
+            # Prepare the user details to return as a response
+            user_details = {
+                'username': user.username,
+                'email': user.email,
+                
+                # Add other fields as needed
+            }
+
+            return JsonResponse({"status": "success", "user": user_details})
         else:
-            print('User Name or Password is incorrect')
-            return HttpResponse('User Name or Password is incorrect')
-    return HttpResponse("Login failed")
+            print('Username or Password is incorrect')
+            return JsonResponse({"status": "error", "message": "Username or Password is incorrect"}, status=401)
+
+    return JsonResponse({"status": "error", "message": "Login failed"}, status=400)
+
 
 
 @csrf_exempt
