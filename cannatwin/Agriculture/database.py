@@ -442,7 +442,7 @@ class PostgreSQLDB:
                          parsed_data = json.loads(json_str)
                       else:
                          parsed_data = row[0]
-                 data.append(parsed_data)
+                         data.append(parsed_data)
 
                  return data
          except Exception as e:
