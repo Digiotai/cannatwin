@@ -81,14 +81,12 @@ CORS_ALLOW_CREDENTIALS = True
 
 DATABASES = {
     'default': {
-        
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'uibmogli',
-        'USER':'uibmogli',
-        'PASSWORD':'8ogImHfL_1G249lXtM3k2EAIWTRDH2mX',
-        'HOST': 'cornelius.db.elephantsql.com',
+        'NAME': 'test',
+        'USER': 'test_owner',
+        'PASSWORD': 'tcWI7unQ6REA',
+        'HOST': 'ep-yellow-recipe-a5fny139.us-east-2.aws.neon.tech',
         'PORT': '5432',
-    
     }
 }
 
