@@ -495,7 +495,7 @@ class PostgreSQLDB:
     
 
 if __name__ == "__main__":
-    db = PostgreSQLDB(dbname='test', user='test_user', password='tcWI7unQ6REA')
+    db = PostgreSQLDB(dbname='test', user='test_owner', password='tcWI7unQ6REA')
     db.table_creation()
     # Add your test cases here
     users = db.get_users()
