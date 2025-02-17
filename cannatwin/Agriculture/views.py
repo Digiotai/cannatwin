@@ -11,7 +11,7 @@ import json
 from dotenv import load_dotenv
 
 
-db = PostgreSQLDB(dbname='test', user='test_user', password='tcWI7unQ6REA')
+db = PostgreSQLDB(dbname='test', user='test_owner', password='tcWI7unQ6REA')
 load_dotenv()
 
 # db.table_creation()
