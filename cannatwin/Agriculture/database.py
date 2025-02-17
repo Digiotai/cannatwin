@@ -234,7 +234,7 @@ import pandas as pd
 import json
 
 class PostgreSQLDB:
-    def __init__(self, dbname, user, password, host='cornelius.db.elephantsql.com', port=5432):
+    def __init__(self, dbname, user, password, host='ep-yellow-recipe-a5fny139.us-east-2.aws.neon.tech', port=5432):
         self.dbname = dbname
         self.user = user
         self.password = password
@@ -495,7 +495,7 @@ class PostgreSQLDB:
     
 
 if __name__ == "__main__":
-    db = PostgreSQLDB(dbname='uibmogli', user='uibmogli', password='8ogImHfL_1G249lXtM3k2EAIWTRDH2mX')
+    db = PostgreSQLDB(dbname='test', user='test_user', password='tcWI7unQ6REA')
     db.table_creation()
     # Add your test cases here
     users = db.get_users()
